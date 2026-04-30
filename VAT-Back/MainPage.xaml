@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.MainPage" 
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Total Refund Header Card -->
+            <Border StrokeShape="RoundRectangle 15" Stroke="Transparent" BackgroundColor="White" Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Opacity="0.1" Radius="5" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Total Expected Refund" FontSize="14" TextColor="Gray" />
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label x:Name="TotalRefundLabel" Grid.Column="0" Text="€0.00" FontSize="36" FontAttributes="Bold" TextColor="#1A237E" />
+
+                        <!-- NEW: Currency Switcher for the Demo -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="View In:" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                            <Picker x:Name="CurrencyToggle" 
+                                    SelectedIndexChanged="OnCurrencyToggleChanged"
+                                    FontSize="12" 
+                                    TextColor="#1A237E"
+                                    WidthRequest="100">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>EUR (€)</x:String>
+                                        <x:String>MYR (RM)</x:String>
+                                        <x:String>GBP (£)</x:String>
+                                        <x:String>USD ($)</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Border StrokeShape="RoundRectangle 8" Stroke="Transparent" BackgroundColor="#E8F5E9" Padding="10,5" HorizontalOptions="Start">
+                        <Label Text="Live Updates" FontSize="12" TextColor="#2E7D32" FontAttributes="Bold" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Recent Activity" FontSize="20" FontAttributes="Bold" TextColor="#1C2833" Margin="0,15,0,5" />
+
+            <!-- Dynamic Receipts List -->
+            <CollectionView x:Name="ReceiptsListView" 
+                EmptyView="No receipts logged yet."
+                SelectionMode="Single"
+                SelectionChanged="OnReceiptSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 15" Stroke="Transparent" BackgroundColor="White" Padding="15" Margin="0,0,0,12">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="0,2" Opacity="0.05" Radius="3" />
+                            </Border.Shadow>
+
+                            <VerticalStackLayout Spacing="12">
+                                <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
+                                    <Label Text="{Binding StoreName}" FontSize="16" FontAttributes="Bold" TextColor="Black" />
+
+                                    <!-- Status Badge with DataTriggers -->
+                                    <Frame CornerRadius="8" Padding="8,4" HasShadow="False" BorderColor="Transparent">
+                                        <Frame.Triggers>
+                                            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Validated">
+                                                <Setter Property="BackgroundColor" Value="#E3F2FD" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Refunded">
+                                                <Setter Property="BackgroundColor" Value="#FFF3E0" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Pending">
+                                                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                                            </DataTrigger>
+                                        </Frame.Triggers>
+
+                                        <Label Text="{Binding Status}" FontSize="12" FontAttributes="Bold">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Validated">
+                                                    <Setter Property="TextColor" Value="#1565C0" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Refunded">
+                                                    <Setter Property="TextColor" Value="#FB8C00" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Pending">
+                                                    <Setter Property="TextColor" Value="#757575" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </Frame>
+                                </FlexLayout>
+
+                                <FlexLayout JustifyContent="SpaceBetween">
+                                    <HorizontalStackLayout Spacing="2">
+                                        <Label Text="{Binding Currency}" FontSize="14" TextColor="Gray" />
+                                        <Label Text="{Binding Amount, StringFormat='{0:F2}'}" FontSize="14" TextColor="Gray" />
+                                    </HorizontalStackLayout>
+                                    <Label Text="{Binding RefundInEur, StringFormat='Refund: €{0:F2}'}" FontSize="14" TextColor="#1A237E" />
+                                </FlexLayout>
+
+                                <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="12" TextColor="LightGray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

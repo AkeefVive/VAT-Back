@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.RoleSelectionPage"
+             Title="Portal Selection"
+             BackgroundColor="#F4F6F8"
+             NavigationPage.HasNavigationBar="False">
+
+    <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+
+        <Image Source="vatback_logo.png" HeightRequest="120" HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+        <Label Text="Welcome to VAT-Back" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#1A237E" />
+        <Label Text="Please select your portal to continue" FontSize="14" HorizontalOptions="Center" TextColor="Gray" />
+
+        <Button Text="Traveler Portal" 
+                Clicked="OnTravelerClicked" 
+                BackgroundColor="#1A237E" 
+                TextColor="White" 
+                HeightRequest="60" 
+                CornerRadius="12" />
+
+        <Button Text="Tax Officer Portal" 
+                Clicked="OnOfficerClicked" 
+                BackgroundColor="White" 
+                BorderColor="#1A237E"
+                BorderWidth="2"
+                TextColor="#1A237E" 
+                HeightRequest="60" 
+                CornerRadius="12" />
+
+    </VerticalStackLayout>
+</ContentPage>

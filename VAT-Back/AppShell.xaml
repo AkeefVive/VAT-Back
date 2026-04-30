@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="VAT_Back.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VAT_Back"
+    Shell.FlyoutBehavior="Flyout"
+    Title="VAT-Back">
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="#1A237E" HeightRequest="150" Padding="20">
+            <VerticalStackLayout VerticalOptions="Center" Spacing="5">
+                <Image Source="vatback_logo.png" HeightRequest="80" HorizontalOptions="Center" />
+                <Label Text="Traveler Portal" TextColor="White" HorizontalOptions="Center" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="My Dashboard" Icon="home_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Add New Receipt" Icon="add_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:AddReceiptPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="About Developer" Icon="info_icon.png">
+        <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+    </FlyoutItem>
+
+    <MenuItem Text="Switch Portal / Logout" 
+              Clicked="OnLogoutClicked" />
+
+</Shell>

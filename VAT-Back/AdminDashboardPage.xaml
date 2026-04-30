@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.AdminDashboardPage"
+             Title="Officer Queue"
+             BackgroundColor="#F4F6F8">
+
+    <Grid RowDefinitions="Auto, *">
+        <VerticalStackLayout Grid.Row="0" Padding="20" BackgroundColor="#1A237E">
+            <Label Text="Verification Queue" FontSize="24" FontAttributes="Bold" TextColor="White" />
+            <Label Text="Review pending tax refund submissions" FontSize="14" TextColor="#C5CAE9" />
+        </VerticalStackLayout>
+
+        <RefreshView Grid.Row="1" x:Name="AdminRefreshView" Command="{Binding RefreshCommand}" Padding="15">
+            <CollectionView x:Name="PendingReceiptsListView" SelectionMode="Single" SelectionChanged="OnReceiptSelected">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0,50">
+                        <Label Text="No pending receipts to verify." TextColor="Gray" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 12" Margin="0,0,0,10" Padding="15" BackgroundColor="White">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding StoreName}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
+                                    <Label Text="{Binding Country}" FontSize="12" TextColor="Gray" />
+                                    <Label Text="{Binding Date, StringFormat='{0:MMMM dd, yyyy}'}" FontSize="11" TextColor="Silver" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+                                    <Label Text="{Binding RefundInEur, StringFormat='€{0:F2}'}" FontSize="18" FontAttributes="Bold" TextColor="#1A237E" />
+                                    <Label Text="NEEDS REVIEW" FontSize="10" TextColor="#FBC02D" HorizontalOptions="End" FontAttributes="Bold"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

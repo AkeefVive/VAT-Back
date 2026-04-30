@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.AddReceiptPage"
+             Title="Add New Receipt"
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Border StrokeShape="RoundRectangle 15" Stroke="Transparent" BackgroundColor="White" Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Opacity="0.05" Radius="5" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="15">
+                    <!-- Store Name -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Store Name" FontSize="14" TextColor="#1C2833" FontAttributes="Bold" />
+                        <Border StrokeShape="RoundRectangle 8" Stroke="#E0E0E0" BackgroundColor="#FAFAFA" Padding="10,0">
+                            <Entry x:Name="StoreEntry" Placeholder="e.g., Apple Store, Zara" BackgroundColor="Transparent" TextColor="Black" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- NEW: Country Picker -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Country of Purchase" FontSize="14" TextColor="#1C2833" FontAttributes="Bold" />
+                        <Border StrokeShape="RoundRectangle 8" Stroke="#E0E0E0" BackgroundColor="#FAFAFA" Padding="10,0">
+                            <Picker x:Name="CountryPicker" Title="Select Country" TextColor="Black" SelectedIndexChanged="OnCountryChanged">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Malaysia</x:String>
+                                        <x:String>Germany (EU)</x:String>
+                                        <x:String>United Kingdom</x:String>
+                                        <x:String>USA</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Amount with Dynamic Label -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label x:Name="AmountLabel" Text="Total Amount (RM)" FontSize="14" TextColor="#1C2833" FontAttributes="Bold" />
+                        <Border StrokeShape="RoundRectangle 8" Stroke="#E0E0E0" BackgroundColor="#FAFAFA" Padding="10,0">
+                            <Entry x:Name="AmountEntry" Placeholder="0.00" Keyboard="Numeric" BackgroundColor="Transparent" TextColor="Black" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Purchase Date" FontSize="14" TextColor="#1C2833" FontAttributes="Bold" />
+                        <Border StrokeShape="RoundRectangle 8" Stroke="#E0E0E0" BackgroundColor="#FAFAFA" Padding="10,0">
+                            <DatePicker x:Name="ReceiptDatePicker" TextColor="Black" BackgroundColor="Transparent" />
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Photo Section -->
+            <Label Text="Receipt Evidence" FontSize="14" TextColor="#1C2833" FontAttributes="Bold" Margin="5,0"/>
+            <Border StrokeShape="RoundRectangle 15" HeightRequest="250" BackgroundColor="#F0F0F0">
+                <Image x:Name="ReceiptPreview" 
+                       Aspect="AspectFit" 
+                       Source="camera_placeholder.png" />
+            </Border>
+
+            <Button Text="Take Photo of Receipt" 
+                    Clicked="OnTakePhotoClicked" 
+                    BackgroundColor="#455A64" 
+                    TextColor="White" 
+                    CornerRadius="10" 
+                    HeightRequest="50"/>
+
+            <Button Text="Submit to Cloud" 
+                    BackgroundColor="#1A237E" 
+                    TextColor="White" 
+                    FontAttributes="Bold" 
+                    CornerRadius="10" 
+                    HeightRequest="60" 
+                    Margin="0,10,0,0"
+                    Clicked="OnSubmitClicked"/>
+
+            <Border StrokeShape="RoundRectangle 10" Stroke="#BBDEFB" BackgroundColor="Transparent" Padding="15">
+                <Label Text="💡 Tip: Make sure to keep your physical receipt for customs validation at the airport." 
+                       TextColor="#455A64" 
+                       FontSize="13" 
+                       LineBreakMode="WordWrap"/>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

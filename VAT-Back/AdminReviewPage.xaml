@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.AdminReviewPage"
+             Title="Verify Receipt"
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Border StrokeShape="RoundRectangle 15" Padding="20" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="StoreLabel" FontSize="22" FontAttributes="Bold" TextColor="#1A237E" />
+                    <Label x:Name="AmountLabel" FontSize="18" TextColor="Black" />
+                    <Label x:Name="CountryLabel" FontSize="14" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Receipt Evidence" FontAttributes="Bold" Margin="5,0" />
+            <Border StrokeShape="RoundRectangle 10" HeightRequest="400" BackgroundColor="Black">
+                <Image x:Name="ReceiptImage" Aspect="AspectFit" />
+            </Border>
+
+            <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                <Button Text="Reject" 
+                        Clicked="OnRejectClicked" 
+                        BackgroundColor="#D32F2F" 
+                        TextColor="White" 
+                        WidthRequest="140" 
+                        CornerRadius="10" />
+
+                <Button Text="Approve" 
+                        Clicked="OnApproveClicked" 
+                        BackgroundColor="#388E3C" 
+                        TextColor="White" 
+                        WidthRequest="140" 
+                        CornerRadius="10" />
+            </HorizontalStackLayout>
+
+            <Button x:Name="PaymentButton"
+                    Text="Confirm Payment Issued" 
+                    IsVisible="False"
+                    Clicked="OnConfirmPaymentClicked" 
+                    BackgroundColor="#1A237E" 
+                    TextColor="White" 
+                    HeightRequest="50"
+                    CornerRadius="10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

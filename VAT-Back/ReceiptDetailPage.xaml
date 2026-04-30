@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.ReceiptDetailPage"
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            <BoxView HeightRequest="120" Color="#283593" />
+
+            <VerticalStackLayout Padding="20" Spacing="20" Margin="0,-80,0,0">
+
+                <Border StrokeShape="RoundRectangle 20" BackgroundColor="White" Padding="20">
+                    <VerticalStackLayout Spacing="10">
+                        <FlexLayout JustifyContent="SpaceBetween">
+                            <Label Text="{Binding StoreName}" FontSize="22" FontAttributes="Bold" />
+                            <Border BackgroundColor="#FFF9C4" Padding="8,2" StrokeShape="RoundRectangle 8">
+                                <Label Text="{Binding Status}" TextColor="#F57F17" FontAttributes="Bold" FontSize="11"/>
+                            </Border>
+                        </FlexLayout>
+                        <Label Text="{Binding Date, StringFormat='{0:MMMM d, yyyy}'}" TextColor="Gray" />
+
+                        <BoxView HeightRequest="1" Color="#EEEEEE" Margin="0,10"/>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="Purchase Amount" FontSize="12" TextColor="Gray"/>
+                                <Label Text="{Binding Amount, StringFormat='€{0:F2}'}" FontSize="18"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="Expected Refund" FontSize="12" TextColor="Gray"/>
+                                <Label Text="{Binding RefundInEur, StringFormat='€{0:F2}'}" FontSize="18" TextColor="#283593" FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="20" Margin="0,10">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Receipt Evidence" FontSize="16" FontAttributes="Bold" TextColor="#1A237E" />
+
+                        <Border StrokeShape="RoundRectangle 10" HeightRequest="350" BackgroundColor="#F8F9FA">
+                            <Image Source="{Binding ReceiptImageUrl}" 
+                   Aspect="AspectFit" 
+                   HorizontalOptions="Center" />
+                        </Border>
+
+                        <Label Text="Status: Verified by Digital Tax Officer" 
+               FontSize="12" 
+               TextColor="Gray" 
+               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 20" BackgroundColor="White" Padding="25">
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Refund Progress" FontSize="18" FontAttributes="Bold"/>
+
+                        <Grid ColumnDefinitions="40, *">
+                            <Ellipse Grid.Column="0" Fill="#283593" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="Purchase Made" FontAttributes="Bold"/>
+                                <Label Text="Receipt added to VAT-Back" FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="40, *">
+                            <Ellipse x:Name="Step2Circle" Grid.Column="0" Fill="#E0E0E0" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="Digital Validation" FontAttributes="Bold"/>
+                                <Label Text="DIVA system processing" FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="40, *">
+                            <Ellipse x:Name="Step3Circle" Grid.Column="0" Fill="#E0E0E0" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="Payment Issued" FontAttributes="Bold"/>
+                                <Label Text="Refund transferred to account" FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Done" Clicked="OnCloseClicked" BackgroundColor="#283593" CornerRadius="12" HeightRequest="50" Margin="0,10,0,20"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

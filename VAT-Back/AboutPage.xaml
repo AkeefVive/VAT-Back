@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VAT_Back.AboutPage"
+             Title="About Developer"
+             BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Border StrokeShape="RoundRectangle 15" Stroke="Transparent" BackgroundColor="White" Padding="20,30">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Opacity="0.05" Radius="5" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+
+                    <Border StrokeShape="RoundRectangle 40" HeightRequest="80" WidthRequest="80" BackgroundColor="#1A237E" HorizontalOptions="Center" Stroke="Transparent">
+                        <Label Text="MA" TextColor="White" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+
+                    <Label Text="Muhammad Akeef" FontSize="20" FontAttributes="Bold" TextColor="#1C2833" HorizontalOptions="Center" />
+                    <Label Text="UNITEN Mobile Developer (SW01083700)" FontSize="14" TextColor="Gray" HorizontalOptions="Center" />
+
+                    <Label Text="VAT-Back is a .NET MAUI mobile application designed to help tourists track and manage their VAT refunds efficiently." 
+                           FontSize="14" TextColor="#455A64" HorizontalTextAlignment="Center" Margin="0,10,0,0" />
+
+                    <Label Text="This project actively supports SDG 12: Responsible Consumption and Production by digitizing paper tax refund processes." 
+                           FontSize="12" TextColor="#2E7D32" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="0,0,0,10" />
+
+                    <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 20" HeightRequest="40" WidthRequest="40" Stroke="#1A237E" BackgroundColor="Transparent">
+                            <Label Text="&lt;/&gt;" TextColor="#1A237E" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                        <Border StrokeShape="RoundRectangle 20" HeightRequest="40" WidthRequest="40" Stroke="#1A237E" BackgroundColor="Transparent">
+                            <Label Text="in" TextColor="#1A237E" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                        <Border StrokeShape="RoundRectangle 20" HeightRequest="40" WidthRequest="40" Stroke="#1A237E" BackgroundColor="Transparent">
+                            <Label Text="✉" TextColor="#1A237E" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Border>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 10" Stroke="#BBDEFB" BackgroundColor="#F8FBFF" Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Version Information" FontSize="14" FontAttributes="Bold" TextColor="#1C2833" />
+                    <Label Text="VAT-Back v1.0.0" FontSize="12" TextColor="Gray" />
+                    <Label Text="© 2026 VAT-Back. All rights reserved." FontSize="12" TextColor="Gray" Margin="0,10,0,0" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
