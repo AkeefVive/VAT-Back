@@ -73,7 +73,7 @@ namespace VAT_Back
             }
         }
 
-        // 3. Final Submission using Base64 (Bypasses Firebase Storage Upgrade)
+        // 3. Submission Logic with Internal Tax Calculation
         private async void OnSubmitClicked(object sender, EventArgs e)
         {
             try
@@ -87,8 +87,43 @@ namespace VAT_Back
                     return;
                 }
 
+                // --- NEW TAX & CONVERSION LOGIC START ---
+                double rawAmount = double.Parse(AmountEntry.Text);
+                string selectedCountry = CountryPicker.SelectedItem?.ToString() ?? "Malaysia";
+
+                double taxRate = 0.0;
+                double conversionToEur = 1.0;
+
+                // Determine Tax Rate and Conversion based on selected country
+                switch (selectedCountry)
+                {
+                    case "Germany (EU)":
+                        taxRate = 0.19; // 19% VAT
+                        conversionToEur = 1.0; // Already in Euro
+                        break;
+                    case "United Kingdom":
+                        taxRate = 0.20; // 20% VAT
+                        conversionToEur = 1.17; // 1 GBP to EUR approx
+                        break;
+                    case "USA":
+                        taxRate = 0.08; // Approx Sales Tax
+                        conversionToEur = 0.93; // 1 USD to EUR approx
+                        break;
+                    case "Malaysia":
+                        taxRate = 0.0; // 0% for tourist refunds currently
+                        conversionToEur = 0.20; // 1 MYR to EUR approx
+                        break;
+                    default:
+                        taxRate = 0.10;
+                        break;
+                }
+
+                // Calculate the refund in original currency, then convert to Euro for the dashboard
+                double refundInOriginalCurrency = rawAmount * taxRate;
+                double refundInEur = refundInOriginalCurrency * conversionToEur;
+                // --- NEW TAX & CONVERSION LOGIC END ---
+
                 // CONVERT IMAGE TO BASE64 STRING
-                // This saves the image as text directly in the Realtime Database
                 byte[] imageBytes = File.ReadAllBytes(_localFilePath);
                 string base64Image = Convert.ToBase64String(imageBytes);
 
@@ -96,18 +131,19 @@ namespace VAT_Back
                 var newReceipt = new Receipt
                 {
                     StoreName = StoreEntry.Text,
-                    Amount = double.Parse(AmountEntry.Text),
+                    Amount = rawAmount,
                     Currency = _currentSymbol,
-                    Country = CountryPicker.SelectedItem?.ToString() ?? "Malaysia",
-                    Date = (DateTime)ReceiptDatePicker.Date, // Keep the cast to avoid CS0266
+                    Country = selectedCountry,
+                    Date = (DateTime)ReceiptDatePicker.Date,
                     Status = "Pending",
+                    RefundInEur = refundInEur, // This now saves the actual value to Firebase!
                     ReceiptImageUrl = $"data:image/jpeg;base64,{base64Image}"
                 };
 
                 // Save Data to Firebase Realtime Database
                 await _firebaseService.AddReceipt(newReceipt);
 
-                await DisplayAlert("Success", "Receipt saved to database!", "OK");
+                await DisplayAlert("Success", "Receipt saved! Refund calculated.", "OK");
                 await Navigation.PopAsync();
             }
             catch (Exception ex)
